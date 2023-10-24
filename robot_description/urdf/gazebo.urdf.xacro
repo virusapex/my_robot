@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <gazebo>
+        <!--plugin
+            filename="gz-sim-pose-publisher-system"
+            name="gz::sim::systems::PosePublisher">
+            <publish_link_pose>true</publish_link_pose>
+            <use_pose_vector_msg>true</use_pose_vector_msg>
+            <static_publisher>true</static_publisher>
+            <static_update_frequency>1</static_update_frequency>
+        </plugin-->
+
+        <!--plugin
+            filename="gz-sim-odometry-publisher-system"
+            name="gz::sim::systems::OdometryPublisher">
+            <odom_frame>robot/odom</odom_frame>
+            <robot_base_frame>robot/base_link</robot_base_frame>
+            <odom_publish_frequency>50</odom_publish_frequency>
+        </plugin-->
+
+        <plugin
+            filename="gz-sim-joint-state-publisher-system"
+            name="gz::sim::systems::JointStatePublisher">
+        </plugin>
+
+        <plugin
+            filename="gz-sim-diff-drive-system"
+            name="gz::sim::systems::DiffDrive">
+            <left_joint>left_wheel_joint</left_joint>
+            <right_joint>right_wheel_joint</right_joint>
+            <child_frame_id>robot/base_link</child_frame_id>
+            <wheel_separation>0.291</wheel_separation>
+            <wheel_radius>0.033</wheel_radius>
+            <odom_publish_frequency>10</odom_publish_frequency>
+        </plugin>
+    </gazebo>
+    
+</robot>
