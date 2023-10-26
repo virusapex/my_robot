@@ -30,5 +30,8 @@
 *.exe
 *.out
 *.app
+
+# Misc
 robot_description/urdf/lidar.urdf.xacro
 robot_description/urdf/depth.urdf.xacro
+.vscode/

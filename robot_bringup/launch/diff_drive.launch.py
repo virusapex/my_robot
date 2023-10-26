@@ -17,14 +17,13 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
-from launch.actions import IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import LaunchConfiguration, Command
 from launch_ros.parameter_descriptions import ParameterValue
-from launch.substitutions import Command
 from launch_ros.actions import Node
+from launch.actions import TimerAction
 
 
 def generate_launch_description():
@@ -54,11 +53,12 @@ def generate_launch_description():
     create = Node(
         package='ros_gz_sim',
         executable='create',
-        arguments=['-name', "robot",
-                '-x 0.0',
-                '-y 0.0',
-                '-z 1.0',
-                '-topic', 'robot_description'],
+        arguments=['-name', 'robot',
+                   '-topic', 'robot_description',
+                   '-x', '0.0',
+                   '-y', '0.0',
+                   '-z', '0.1',
+                ],
         output='screen',
     )
 
@@ -95,10 +95,12 @@ def generate_launch_description():
 
     return LaunchDescription([
         gz_sim,
-        create,
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Open RViz.'),
         bridge,
         robot_state_publisher,
-        rviz
+        rviz,
+        TimerAction(
+            period=5.0,
+            actions=[create])
     ])
