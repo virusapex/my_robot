@@ -2,8 +2,8 @@
 <robot name='robot' xmlns:xacro="http://ros.org/wiki/xacro">
 
     <xacro:include filename="$(find robot_description)/urdf/gazebo.urdf.xacro" />
-    <!--xacro:include filename="$(find robot_description)/urdf/lidar.urdf.xacro" /-->
-    <!--xacro:include filename="$(find robot_description)/urdf/depth.urdf.xacro" /-->
+    <xacro:include filename="$(find robot_description)/urdf/lidar.urdf.xacro" />
+    <xacro:include filename="$(find robot_description)/urdf/depth.urdf.xacro" />
 
     <xacro:property name="chassis_length" value="0.335"/>
     <xacro:property name="chassis_width" value="0.265"/>

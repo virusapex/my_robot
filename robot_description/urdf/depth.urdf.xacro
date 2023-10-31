@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+
+    <joint name="depth_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="depth_frame"/>
+        <origin xyz="0.1 0 0.25" rpy="0 0.2 0"/>
+    </joint>
+
+    <material name="aluminum">
+      <color rgba="0.5 0.5 0.5 1"/>
+    </material>
+
+    <link name="depth_frame">
+        <visual>
+            <origin xyz="0.00465 -0.0475 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
+            <geometry>
+                <mesh filename="file://$(find robot_description)/urdf/d455.stl" scale="0.001 0.001 0.001"/>
+                <!--box size="0.026 0.124 0.029"/-->
+            </geometry>
+            <material name="aluminum"/>
+        </visual>
+        <collision>
+            <origin xyz="0.00465 -0.0475 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
+            <geometry>
+                <box size="0.026 0.124 0.029"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="0.116" />
+            <inertia ixx="${(1/12) * 0.116 * (0.026*0.026+0.029*0.029)}" ixy="0.0" ixz="0.0"
+                     iyy="${(1/12) * 0.116 * (0.124*0.124+0.029*0.029)}" iyz="0.0"
+                     izz="${(1/12) * 0.116 * (0.124*0.124+0.026*0.026)}" />
+        </inertial>
+    </link>
+
+    <gazebo reference="depth_frame">
+        <sensor name='depth_sensor_frame' type='depth_camera'>"
+            <gz_frame_id>robot/depth_frame</gz_frame_id>
+            <pose> 0 0 0 0 0 0 </pose>
+            <always_on>true</always_on>
+            <update_rate>10</update_rate>
+            <camera>
+                <horizontal_fov>1.51843645</horizontal_fov>
+                <image>
+                    <width>848</width>
+                    <height>480</height>
+                    <format>R_FLOAT32</format>
+                </image>
+                <clip>
+                    <near>0.1</near>
+                    <far>10</far>
+                </clip>
+                <lens>
+                    <intrinsics>
+                    <fx>421.61578369140625</fx>
+                    <fy>421.61578369140625</fy>
+                    <cx>422.2854309082031</cx>
+                    <cy>236.57237243652344</cy>
+                    <s>0</s>
+                    </intrinsics>
+                </lens>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+        </sensor>
+        <sensor name="color_sensor_frame" type="camera">
+            <gz_frame_id>robot/depth_frame</gz_frame_id>
+            <pose>0 0 0 0 0 0</pose>
+            <update_rate>30</update_rate>
+            <always_on>true</always_on>
+            <camera>
+                <horizontal_fov>1.20427718</horizontal_fov>
+                <image>
+                    <width>848</width>
+                    <height>480</height>
+                </image>
+                <clip>
+                    <near>0.1</near>
+                    <far>50</far>
+                </clip>
+                <lens>
+                    <intrinsics>
+                    <fx>615.9603271484375</fx>
+                    <fy>616.227294921875</fy>
+                    <cx>419.83026123046875</cx>
+                    <cy>245.1431427001953</cy>
+                    <s>0</s>
+                    </intrinsics>
+                </lens>
+            </camera>
+        </sensor>
+    </gazebo>
+</robot>
