@@ -1,13 +1,11 @@
-# my_robot
+# AutoRace 2023
 A template project integrating ROS 2 and Gazebo Garden simulator.
 
 ## Included packages
 
-* `robot_description` - holds the sdf description of the simulated system and any other assets.
+* `robot_description` - holds the SDF description of the simulated system, worlds and any other assets.
 
-* `robot_gazebo` - holds gazebo specific code and configurations. Namely this is where systems end up.
-
-* `robot_app` - holds ros2 specific code and configurations.
+* `robot_app` - holds ROS2 specific code and configurations.
 
 * `robot_bringup` - holds launch files and high level utilities.
 
@@ -35,5 +33,5 @@ A template project integrating ROS 2 and Gazebo Garden simulator.
 4. Launch the simulation
 
     ```bash
-    ros2 launch robot_bringup diff_drive.launch.py
+    ros2 launch robot_bringup autorace_2023.launch.py
     ```
