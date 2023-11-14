@@ -1,25 +1,20 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+
     <joint name="laser_joint" type="fixed">
         <parent link="base_link"/>
         <child link="laser_frame"/>
-        <origin xyz="0.1 0 0.212" rpy="0 0 0"/>
+        <origin xyz="0.0 0 0.08" rpy="0 0 ${M_PI}"/>
     </joint>
 
     <link name="laser_frame">
         <visual>
             <geometry>
-                <cylinder radius="0.05" length="0.04"/>
+                <mesh filename="file://$(find robot_description)/urdf/lidar.stl" scale="0.001 0.001 0.001"/>
             </geometry>
-            <material name="black"/>
-        </visual>
-        <visual>
-            <origin xyz="0 0 -0.05"/>
-            <geometry>
-                <cylinder radius="0.01" length="0.1"/>
-            </geometry>
-            <material name="black"/>
+            <material name="aluminum"/>
         </visual>
         <collision>
             <geometry>
@@ -41,8 +36,8 @@
         <sensor name='laser_sensor_frame' type='gpu_lidar'>"
             <gz_frame_id>robot/laser_frame</gz_frame_id>
             <pose> 0 0 0 0 0 0 </pose>
-            <visualize>true</visualize>
-            <always_on>true</always_on>
+            <visualize>false</visualize>
+            <always_on>false</always_on>
             <update_rate>10</update_rate>
             <ray>
                 <scan>
@@ -53,8 +48,8 @@
                     </horizontal>
                 </scan>
                 <range>
-                    <min>0.3</min>
-                    <max>12</max>
+                    <min>0.1</min>
+                    <max>10</max>
                 </range>
                 <noise>
                     <type>gaussian</type>

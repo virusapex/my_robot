@@ -5,19 +5,21 @@
     <xacro:include filename="$(find robot_description)/urdf/lidar.urdf.xacro" />
     <xacro:include filename="$(find robot_description)/urdf/depth.urdf.xacro" />
 
-    <xacro:property name="chassis_length" value="0.335"/>
-    <xacro:property name="chassis_width" value="0.265"/>
-    <xacro:property name="chassis_height" value="0.138"/>
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+
+    <xacro:property name="chassis_length" value="0.176"/>
+    <xacro:property name="chassis_width" value="0.13"/>
+    <xacro:property name="chassis_height" value="0.069"/>
     <xacro:property name="wheel_radius" value="0.033"/>
-    <xacro:property name="wheel_thickness" value="0.026"/>
-    <xacro:property name="wheel_mass" value="0.05"/>
-    <xacro:property name="wheel_offset_x" value="0.226"/>
-    <xacro:property name="wheel_offset_y" value="0.1485"/>
+    <xacro:property name="wheel_thickness" value="0.018"/>
+    <xacro:property name="wheel_mass" value="0.2"/>
+    <xacro:property name="wheel_offset_x" value="0.0375"/>
+    <xacro:property name="wheel_offset_y" value="0.055"/>
     <xacro:property name="wheel_offset_z" value="0.01"/>
-    <xacro:property name="caster_wheel_radius" value="0.01"/>
+    <xacro:property name="caster_wheel_radius" value="0.024"/>
     <xacro:property name="caster_wheel_mass" value="0.01"/>
-    <xacro:property name="caster_wheel_offset_x" value="0.075"/>
-    <xacro:property name="caster_wheel_offset_z" value="${wheel_offset_z - wheel_radius + caster_wheel_radius}"/>
+    <xacro:property name="caster_wheel_offset_x" value="0.08"/>
+    <xacro:property name="caster_wheel_offset_z" value="-0.05"/>
     <xacro:property name="mass" value="1.0"/>
 
     <material name="white">
@@ -40,46 +42,39 @@
         <color rgba="1 0 0 1"/>
     </material>
 
-    <link name="base_link">
-    </link>
-
-    <link name="base_footprint">
-    </link>
+    <link name="base_link" />
+    <link name="base_footprint" />
 
     <joint name="base_footprint_joint" type="fixed">
         <parent link="base_link"/>
         <child link="base_footprint"/>
-        <origin xyz="0 0 -0.138" rpy="0 0 0"/>
+        <origin xyz="0 0 -0.03" rpy="0 0 0"/>
     </joint>
 
     <joint name="chassis_joint" type="fixed">
         <parent link="base_link"/>
         <child link="chassis"/>
-        <origin xyz="${-wheel_offset_x} 0 ${-wheel_offset_z}"/>
+        <origin xyz="0 0 0.04" rpy="0 0 ${M_PI}"/>
     </joint>
 
     <link name='chassis'>
-    
-    <inertial>
-        <origin xyz="${chassis_length/2} 0 ${chassis_height/2}" rpy="0 0 0"/>
-        <mass value="${mass}" />
-        <inertia ixx="${(1/12) * mass * (chassis_width*chassis_width+chassis_height*chassis_height)}" ixy="0.0" ixz="0.0"
-                 iyy="${(1/12) * mass * (chassis_length*chassis_length+chassis_height*chassis_height)}" iyz="0.0"
-                 izz="${(1/12) * mass * (chassis_length*chassis_length+chassis_width*chassis_width)}" />
-    </inertial>
-    <visual>
-        <origin xyz="${chassis_length/2} 0 ${chassis_height/2}"/>
-        <geometry>
-            <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
-        </geometry>
-        <material name="orange"/>
-    </visual>
-    <collision>
-        <origin xyz="${chassis_length/2} 0 ${chassis_height/2}"/>
-        <geometry>
-            <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
-        </geometry>
-    </collision>
+        <inertial>
+            <mass value="${mass}" />
+            <inertia ixx="1e-3" ixy="0.0" ixz="0.0"
+                     iyy="1e-3" iyz="0.0"
+                     izz="1e-3" />
+        </inertial>
+        <visual>
+            <geometry>
+                <mesh filename="file://$(find robot_description)/urdf/body_center.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
+            </geometry>
+        </collision>
     </link>
 
     <gazebo reference="chassis">
@@ -89,14 +84,14 @@
     <joint name="left_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="left_wheel"/>
-        <origin xyz="0 ${wheel_offset_y} 0" rpy="-${pi/2} 0 0" />
-        <axis xyz="0 0 1"/>
+        <origin xyz="${wheel_offset_x} ${wheel_offset_y} 0" rpy="0 0 0" />
+        <axis xyz="0 1 0"/>
     </joint>
 
     <link name="left_wheel">
         <visual>
             <geometry>
-                <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+                <mesh filename="file://$(find robot_description)/urdf/left_tire.stl" scale="0.001 0.001 0.001"/>
             </geometry>
             <material name="blue"/>
         </visual>
@@ -107,10 +102,10 @@
         </collision>
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
-            <mass value="${wheel_mass}" />
-            <inertia ixx="${(1/12) * wheel_mass * (3*wheel_radius*wheel_radius + wheel_thickness*wheel_thickness)}" ixy="0.0" ixz="0.0"
-                     iyy="${(1/12) * wheel_mass * (3*wheel_radius*wheel_radius + wheel_thickness*wheel_thickness)}" iyz="0.0"
-                     izz="${(1/2) * wheel_mass * (wheel_radius*wheel_radius)}" />
+            <mass value="2.8498940e-02" />
+            <inertia ixx="1.1175580e-05" ixy="-4.2369783e-11" ixz="-5.9381719e-09"
+                     iyy="1.1192413e-05" iyz="-1.4400107e-11"
+                     izz="2.0712558e-05" />
         </inertial>
     </link>
 
@@ -121,14 +116,14 @@
     <joint name="right_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="right_wheel"/>
-        <origin xyz="0 ${-wheel_offset_y} 0" rpy="${pi/2} 0 0" />
-        <axis xyz="0 0 -1"/>
+        <origin xyz="${wheel_offset_x} ${-wheel_offset_y} 0" rpy="0 0 0" />
+        <axis xyz="0 1 0"/>
     </joint>
 
     <link name="right_wheel">
         <visual>
             <geometry>
-                <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+                <mesh filename="file://$(find robot_description)/urdf/right_tire.stl" scale="0.001 0.001 0.001"/>
             </geometry>
             <material name="blue"/>
         </visual>
@@ -139,10 +134,10 @@
         </collision>
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
-            <mass value="${wheel_mass}" />
-            <inertia ixx="${(1/12) * wheel_mass * (3*wheel_radius*wheel_radius + wheel_thickness*wheel_thickness)}" ixy="0.0" ixz="0.0"
-                     iyy="${(1/12) * wheel_mass * (3*wheel_radius*wheel_radius + wheel_thickness*wheel_thickness)}" iyz="0.0"
-                     izz="${(1/2) * wheel_mass * (wheel_radius*wheel_radius)}" />
+            <mass value="2.8498940e-02" />
+            <inertia ixx="1.1175580e-05" ixy="-4.2369783e-11" ixz="-5.9381719e-09"
+                     iyy="1.1192413e-05" iyz="-1.4400107e-11"
+                     izz="2.0712558e-05" />
         </inertial>
     </link>
 
@@ -160,7 +155,7 @@
     <link name="caster_wheel">
         <visual>
             <geometry>
-                <sphere radius="${caster_wheel_radius}"/>
+                <mesh filename="file://$(find robot_description)/urdf/left_tire.stl" scale="0.0009 0.0009 0.0009"/>
             </geometry>
             <material name="white"/>
         </visual>
@@ -179,9 +174,9 @@
     </link>
 
     <gazebo reference="caster_wheel">
-        <material>Gazebo/White</material>
         <mu1 value="0.001"/>
         <mu2 value="0.001"/>
+        <material>Gazebo/White</material>
     </gazebo>
 
 </robot>
