@@ -27,7 +27,7 @@ def generate_launch_description():
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
-        launch_arguments={'gz_args': "-r course.sdf"}.items(),
+        launch_arguments={'gz_args': "-r 'https://fuel.gazebosim.org/1.0/OpenRobotics/worlds/industrial-warehouse'"}.items(),
     )
 
     # Spawn robot
@@ -36,8 +36,8 @@ def generate_launch_description():
         executable='create',
         arguments=['-name', 'robot',
                    '-topic', 'robot_description',
-                   '-x', '0.8',
-                   '-y', '-1.747',
+                   '-x', '-6.26',
+                   '-y', '9.1',
                    '-z', '0.08',
                 ],
         output='screen',
@@ -69,12 +69,34 @@ def generate_launch_description():
         package='ros_gz_bridge',
         executable='parameter_bridge',
         parameters=[{
-            'config_file': os.path.join(pkg_project_bringup, 'config', 'robot_bridge.yaml'),
+            'config_file': os.path.join(pkg_project_bringup, 'config', 'robot_bridge_nav.yaml'),
             'qos_overrides./tf_static.publisher.durability': 'transient_local',
             "use_sim_time": True,
         }],
         output='screen'
     )
+
+    slam_pkg_path = get_package_share_directory("slam_toolbox")
+
+    slam = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(slam_pkg_path, "launch", "online_async_launch.py"),
+        ),
+        launch_arguments={
+            "use_sim_time": "true",
+            "slam_params_file": os.path.join(
+                pkg_project_bringup, "config", "mapper.yaml"
+            )
+        }.items(),
+    )
+
+    robot_localization_node = Node(
+       package='robot_localization',
+       executable='ekf_node',
+       name='ekf_filter_node',
+       output='screen',
+       parameters=[os.path.join(pkg_project_bringup, 'config/mapper.yaml'), {'use_sim_time': True}]
+)
 
     return LaunchDescription([
         gz_sim,
@@ -82,7 +104,9 @@ def generate_launch_description():
                               description='Open RViz.'),
         bridge,
         robot_state_publisher,
+        robot_localization_node,
         rviz,
+        slam,
         TimerAction(
             period=0.0,
             actions=[create])

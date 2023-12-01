@@ -12,7 +12,7 @@
     <link name="laser_frame">
         <visual>
             <geometry>
-                <mesh filename="file://$(find robot_description)/urdf/lidar.stl" scale="0.001 0.001 0.001"/>
+                <mesh filename="file://$(find robot_description)/urdf/lidar_sim.stl" scale="0.001 0.001 0.001"/>
             </geometry>
             <material name="aluminum"/>
         </visual>

@@ -66,7 +66,7 @@
         </inertial>
         <visual>
             <geometry>
-                <mesh filename="file://$(find robot_description)/urdf/body_center.stl" scale="0.001 0.001 0.001"/>
+                <mesh filename="file://$(find robot_description)/urdf/body_center_sim.stl" scale="0.001 0.001 0.001"/>
             </geometry>
             <material name="blue"/>
         </visual>
@@ -91,7 +91,7 @@
     <link name="left_wheel">
         <visual>
             <geometry>
-                <mesh filename="file://$(find robot_description)/urdf/left_tire.stl" scale="0.001 0.001 0.001"/>
+                <mesh filename="file://$(find robot_description)/urdf/left_tire_sim.stl" scale="0.001 0.001 0.001"/>
             </geometry>
             <material name="blue"/>
         </visual>
@@ -123,7 +123,7 @@
     <link name="right_wheel">
         <visual>
             <geometry>
-                <mesh filename="file://$(find robot_description)/urdf/right_tire.stl" scale="0.001 0.001 0.001"/>
+                <mesh filename="file://$(find robot_description)/urdf/right_tire_sim.stl" scale="0.001 0.001 0.001"/>
             </geometry>
             <material name="blue"/>
         </visual>
@@ -155,7 +155,7 @@
     <link name="caster_wheel">
         <visual>
             <geometry>
-                <mesh filename="file://$(find robot_description)/urdf/left_tire.stl" scale="0.0009 0.0009 0.0009"/>
+                <mesh filename="file://$(find robot_description)/urdf/left_tire_sim.stl" scale="0.0009 0.0009 0.0009"/>
             </geometry>
             <material name="white"/>
         </visual>
