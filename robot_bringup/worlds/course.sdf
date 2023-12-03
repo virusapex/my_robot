@@ -574,17 +574,7 @@
       <pose frame=''>1.49021 1.46167 0.15 0 -0 0</pose>
     </model>
 
-    <model name='unit_box'>
-      <pose frame=''>-1.72  0.56 0.12 0 0 -0.0 </pose>
-      <scale>1 1 1</scale>
-      <link name='traffic_bar'>
-        <pose frame=''>-1.72  0.56 0.12 0 0 -0.0 </pose>
-        <velocity>0 0 0 0 -0 0</velocity>
-        <acceleration>1.06648 0.03546 4.20605 2.1745 -1.41657 3.10996</acceleration>
-        <wrench>1.06648 0.03546 4.20605 0 -0 0</wrench>
-      </link>
-      <static>1</static>
-    </model>
+    
 
   </world>
 </sdf>
