@@ -91,9 +91,9 @@
       <link name="course_link">
         <collision name="course_collision">
           <geometry>
-            <box>
-              <size>4 4 0.1</size>
-            </box>
+            <mesh>
+              <uri>model://materials/course_v4.dae</uri>
+            </mesh>
           </geometry>
           <surface>
             <friction>
@@ -108,7 +108,7 @@
           <cast_shadows>false</cast_shadows>
           <geometry>
             <mesh>
-              <uri>model://materials/course_v3.dae</uri>
+              <uri>model://materials/course_v4.dae</uri>
             </mesh>
           </geometry>
         </visual>
