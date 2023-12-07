@@ -6,6 +6,46 @@
 
   <world name="course">
 
+    <actor name='actor_walking'>
+      <link name="square">
+        <visual name="visual">
+            <geometry>
+              <mesh>
+                <scale>1 1 1</scale>
+                <uri>model://actor.dae</uri>
+              </mesh>
+            </geometry>
+          </visual>
+        </link>
+        <script>
+            <loop>true</loop>
+            <delay_start>0.000000</delay_start>
+            <auto_start>true</auto_start>
+            <trajectory id='0' type='square'>
+            <waypoint>
+                <time>0</time>
+                <pose>-0.71 1.44 0.05 0 0 0</pose>
+            </waypoint>
+            <waypoint>
+                <time>10</time>
+                <pose>-0.71 1.0 0.05 0 0 0</pose>
+            </waypoint>
+            <waypoint>
+                <time>20</time>
+                <pose>-0.71 1.0 0.05 0 0 3.14</pose>
+            </waypoint>
+            <waypoint>
+                <time>30</time>
+                <pose>-0.71 1.44 0.05 0 0 3.14</pose>
+            </waypoint>
+            <waypoint>
+                <time>40</time>
+                <pose>-0.71 1.44 0.05 0 0 0</pose>
+            </waypoint>
+            </trajectory>
+        </script>
+    </actor>
+
     <!--Plugins and physics-->
     <physics name="5ms" type="ignored">
       <max_step_size>0.005</max_step_size>
@@ -91,9 +131,9 @@
       <link name="course_link">
         <collision name="course_collision">
           <geometry>
-            <mesh>
-              <uri>model://materials/course_v4.dae</uri>
-            </mesh>
+            <box>
+              <size>4 4 0.1</size>
+            </box>
           </geometry>
           <surface>
             <friction>
