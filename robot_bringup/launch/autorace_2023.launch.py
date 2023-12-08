@@ -27,7 +27,7 @@ def generate_launch_description():
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
-        launch_arguments={'gz_args': "-r course.sdf --physics-engine gz-physics-bullet-featherstone-plugin"}.items(),
+        launch_arguments={'gz_args': "-r course.sdf"}.items(),
     )
 
     # Spawn robot
@@ -52,7 +52,7 @@ def generate_launch_description():
         parameters=[
             {'robot_description': robot_desc},
             {'frame_prefix': "robot/"},
-            {"use_sim_time": True,}
+            {"use_sim_time": True}
         ]
     )
 
@@ -61,7 +61,10 @@ def generate_launch_description():
        package='rviz2',
        executable='rviz2',
        arguments=['-d', os.path.join(pkg_project_bringup, 'config', 'autorace_2023.rviz')],
-       condition=IfCondition(LaunchConfiguration('rviz'))
+       condition=IfCondition(LaunchConfiguration('rviz')),
+       parameters=[
+            {"use_sim_time": True}
+        ]
     )
 
     # Bridge ROS topics and Gazebo messages for establishing communication
