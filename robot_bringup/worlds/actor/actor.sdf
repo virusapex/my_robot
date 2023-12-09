@@ -1,0 +1,27 @@
+<?xml version='1.0'?>
+<sdf version='1.10'>
+    <actor name='actor_walking'>
+        <skin>
+            <filename>model://actor.dae</filename>
+        </skin>
+        <animation name='walk'>
+            <filename>model://actor.dae</filename>
+            <interpolate_x>true</interpolate_x>
+        </animation>
+        <script>
+            <loop>true</loop>
+            <delay_start>0.000000</delay_start>
+            <auto_start>true</auto_start>
+            <trajectory id='0' type='walk' tension='0.6'>
+            <waypoint>
+                <time>0</time>
+                <pose>0 0 0.1 0 0 0</pose>
+            </waypoint>
+            <waypoint>
+                <time>10</time>
+                <pose>0.5 0 0.1 0 0 0</pose>
+            </waypoint>
+            </trajectory>
+        </script>
+    </actor>
+</sdf>

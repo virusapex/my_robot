@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<?xml-model
+  href="http://download.ros.org/schema/package_format3.xsd"
+  schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>referee_console</name>
+  <version>0.0.1</version>
+  <description>Referee console for Autorace 2023</description>
+  <license>Apache 2.0</license>
+  <maintainer email="v.kudinov@g.nsu.ru">V. Kudinov</maintainer>
+  <author email="v.kudinov@g.nsu.ru">Vitalii Kudinov</author>
+  <buildtool_depend>ament_python</buildtool_depend>
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
