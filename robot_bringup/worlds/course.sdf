@@ -12,7 +12,7 @@
           <geometry>
             <mesh>
               <scale>0.1 0.1 0.1</scale>
-              <uri>model://actor.dae</uri>
+              <uri>model://actor/actor.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -697,7 +697,7 @@
         <gravity>1</gravity>
       </link>
       <link name='Wall_2'>
-        <pose frame=''>0 -0.935438 0 0 -0 0</pose>
+        <pose frame=''>0 -0.875438 0 0 -0 0</pose>
         <self_collide>0</self_collide>
         <kinematic>0</kinematic>
         <visual name='Wall_2_Visual'>
