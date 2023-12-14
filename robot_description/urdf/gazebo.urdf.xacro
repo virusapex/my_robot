@@ -38,6 +38,7 @@
             <wheel_separation>0.11</wheel_separation>
             <wheel_radius>0.033</wheel_radius>
             <odom_publish_frequency>50</odom_publish_frequency>
+            <min_velocity>-1.0</min_velocity>
             <max_velocity>1.0</max_velocity>
             <min_acceleration>-0.3</min_acceleration>
             <max_acceleration>0.3</max_acceleration>
