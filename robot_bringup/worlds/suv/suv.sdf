@@ -1,18 +1,17 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
   <model name='suv'>
+    <pose>0 0 0 0 0 -1.57079632679</pose>
     <static>true</static>
     <link name='suv'>
       <collision name='collision'>
-        <pose>0 0 0 0 0 -1.57079632679</pose>
         <geometry>
           <box>
-              <size>0.78 0.3 0.2</size>
+              <size>0.3 0.15 0.18</size>
           </box>
         </geometry>
       </collision>
       <visual name='visual'>
-        <pose>0 0 0 0 0 -1.57079632679</pose>
         <geometry>
           <mesh>
             <scale>0.005 0.005 0.005</scale>
