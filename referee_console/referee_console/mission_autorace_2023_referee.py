@@ -115,7 +115,7 @@ class ControlMission(Node):
         with open(suv_path, 'r') as suv:
             self.suv_model = suv.read().replace("\n", "")
 
-        obstacle_path = model_dir_path + '/obstacle.sdf'
+        obstacle_path = model_dir_path + '/obstacle_tall.sdf'
         with open(obstacle_path, 'r') as obs:
             self.obstacle_model = obs.read().replace("\n", "")
 
