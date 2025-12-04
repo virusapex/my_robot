@@ -4,8 +4,8 @@
   schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>referee_console</name>
-  <version>0.0.1</version>
-  <description>Referee console for Autorace 2023</description>
+  <version>0.1.0</version>
+  <description>Referee console for Autorace 2025</description>
   <license>Apache 2.0</license>
   <maintainer email="v.kudinov@g.nsu.ru">V. Kudinov</maintainer>
   <author email="v.kudinov@g.nsu.ru">Vitalii Kudinov</author>

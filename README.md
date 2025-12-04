@@ -1,5 +1,5 @@
-# AutoRace 2023
-A ROS2 metapackage that has necessary packages for AutoRace 2023 challenge.
+# AutoRace 2025
+A ROS2 metapackage that has necessary packages for AutoRace 2025 challenge.
 
 <div align="center">
   <img src="AutoRace.png" width="600"/>
@@ -13,7 +13,7 @@ A ROS2 metapackage that has necessary packages for AutoRace 2023 challenge.
 
 * `robot_bringup` - holds launch files, worlds and multiple configurations that serve as an example and as a required system for AutoRace to work.
 
-## Usage for AutoRace 2023
+## Usage for AutoRace 2025
 
 1. Install dependencies
 
@@ -37,7 +37,7 @@ A ROS2 metapackage that has necessary packages for AutoRace 2023 challenge.
 4. Launch the simulation
 
     ```bash
-    ros2 launch robot_bringup autorace_2023.launch.py
+    ros2 launch robot_bringup autorace_2025.launch.py
     ```
 
 5. Run your own launch file that controls the robot
@@ -49,7 +49,7 @@ A ROS2 metapackage that has necessary packages for AutoRace 2023 challenge.
 6. Run the referee
 
     ```bash
-    ros2 run referee_console mission_autorace_2023_referee
+    ros2 run referee_console mission_autorace_2025_referee
     ```
 
 **Good luck!**
