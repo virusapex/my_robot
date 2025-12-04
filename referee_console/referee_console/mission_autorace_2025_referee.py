@@ -2,8 +2,10 @@ import rclpy
 from rclpy.node import Node
 import subprocess, random
 import time, os
+import cv2
+import numpy as np
 from nav_msgs.msg import Odometry
-from std_msgs.msg import String
+from std_msgs.msg import String, Float32
 from rclpy.parameter import Parameter
 
 
@@ -30,10 +32,13 @@ class ControlMission(Node):
                                                          '/robot_finish',
                                                          self.cbRobotFinish,
                                                          1)
+        self.sub_aruco_mission = self.create_subscription(Float32,
+                                                          '/mission_aruco',
+                                                          self.cbArucoMission,
+                                                          1)
+        self.aruco_marker_id = -1
         self.traffic_state = 1  # initial state
         self.loadMissionModel() # pre-loads all necessary models
-        self.setTraffic()       # populates the parking space
-        self.setObstacle()      # randomizes obstacle mission (tunnel)
         self.controlMission()   # spawns the traffic light and starts the timer
 
     def getOdom(self, msg):
@@ -47,11 +52,7 @@ class ControlMission(Node):
         # Un-comment to print current odometry pose
         # self.get_logger().info(f'Current pose: {pose_x, pose_y}\n {self.traffic_state}')
 
-        if -2.1 < pose_x < -1.85 and 2.85 < pose_y < 3.05 and self.traffic_state == 5:
-            # We can auto-finish only when we arrived at pedestrian crossing
-            self.traffic_state = 6
-
-        if 0.02 < pose_x < 0.12 and -0.12 < pose_y < 0.12 and self.traffic_state == 6:
+        if -0.12 < pose_x < 0.12 and -0.12 < pose_y < 0.12 and self.traffic_state == 6:
             self.autoRobotFinish()  # auto detect finish
 
     def convert_to_float(self, time_tuple):
@@ -85,11 +86,25 @@ class ControlMission(Node):
                                Final_time={(self.time_robot_finish - self.time_robot_start):.3f}")
         self.destroy_node()
 
+    def cbArucoMission(self, msg):
+        '''
+        Callback for AruCo mission verification
+        '''
+        if self.aruco_marker_id == -1:
+            self.get_logger().warn("AruCo marker not yet generated!")
+            return
+
+        expected_value = np.sqrt(self.aruco_marker_id)
+        if abs(msg.data - expected_value) < 1e-3:
+            self.get_logger().info("Mission AruCo Success")
+        else:
+            self.get_logger().info(f"Mission AruCo Fail: Expected {expected_value:.3f}, got {msg.data:.3f}")
+
     def loadMissionModel(self):
         '''
         Pre-loads assets for the missions
         '''
-        model_dir_path = os.environ.get("GZ_SIM_RESOURCE_PATH").split(":")[-1]
+        model_dir_path = os.environ.get("GZ_SIM_RESOURCE_PATH").split(":")[0]
 
         red_light_path = model_dir_path + '/traffic_light/red.sdf'
         with open(red_light_path, 'r') as rlm:
@@ -111,54 +126,63 @@ class ControlMission(Node):
         with open(traffic_right_path, 'r') as trm:
             self.traffic_right_model = trm.read().replace("\n", "")
 
-        suv_path = model_dir_path + '/suv/suv.sdf'
-        with open(suv_path, 'r') as suv:
-            self.suv_model = suv.read().replace("\n", "")
+        self.aruco_sign_model = """
+<sdf version='1.10'>
+    <model name='aruco_sign'>
+      <static>true</static>
+      <link name='box'>
+        <pose>-0.88 1.05 0.13 0 0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.05 0.15 0.15</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.05 0.15 0.15</size>
+            </box>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>/tmp/aruco_marker.png</albedo_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+</sdf>
+""".replace('\n', '')
 
-        obstacle_path = model_dir_path + '/obstacle_tall.sdf'
-        with open(obstacle_path, 'r') as obs:
-            self.obstacle_model = obs.read().replace("\n", "")
-
-    def setTraffic(self):
+    def generateArucoMarker(self):
         '''
-        Populates a spot in the parking mission
-        by using a vehicle model
+        Generates a random AruCo marker from DICT_6x6_250
         '''
-        parking_stop = random.random()
-        x = 0.8 if parking_stop < 0.5 else 0.23
-        y = 0.8
-        z = 0.05
-        # Changes string values from the original file
-        modified_suv_model = self.suv_model.replace('0 0 0 0 0 -1.57079632679',
-                                                    f'{x} {y} {z} 0 0 0')
+        aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
+        self.aruco_marker_id = random.randint(0, 249)
+        marker_img = cv2.aruco.drawMarker(aruco_dict, self.aruco_marker_id, 200)
+        cv2.imwrite('/tmp/aruco_marker.png', marker_img)
+        self.get_logger().info(f"Generated AruCo marker with ID: {self.aruco_marker_id}")
 
-        # Calls a service to spawn the model
+    def spawnArucoSign(self):
+        '''
+        Spawns the sign with the generated AruCo marker
+        '''
+        self.generateArucoMarker()
+        
         command = ["gz", "service", "-s", "/world/course/create",
                     "--reqtype", "gz.msgs.EntityFactory",
                     "--reptype", "gz.msgs.Boolean",
                     "--timeout", "300",
-                    "--req", f'sdf: "{modified_suv_model}"']
-
-        p = subprocess.run(command)
-
-    def setObstacle(self):
-        '''
-        Populates the tunnel mission with a set of obstacles
-        '''
-        x = random.uniform(-1.39, -0.62)
-        y = random.uniform(-1.3, -0.76)
-        # Changes string values from the original file
-        modified_obstacle_model = self.obstacle_model.replace('-2 -2 0 0 0 0',
-                                                              f'{x} {y} 0 0 0 0')
-
-        # Calls a service to spawn the model
-        command = ["gz", "service", "-s", "/world/course/create",
-                    "--reqtype", "gz.msgs.EntityFactory",
-                    "--reptype", "gz.msgs.Boolean",
-                    "--timeout", "300",
-                    "--req", f'sdf: "{modified_obstacle_model}"']
-
-        p = subprocess.run(command)
+                    "--req", f'sdf: "{self.aruco_sign_model}"']
+        
+        subprocess.run(command)
 
     def controlMission(self):
         '''
@@ -220,6 +244,8 @@ class ControlMission(Node):
                 self.time_robot_start = self.convert_to_float(self.get_clock().now()
                                                               .seconds_nanoseconds())
                 self.get_logger().info(f"Robot start time {self.time_robot_start:.3f}")
+                
+                self.spawnArucoSign()
 
         elif self.traffic_state == 4: # intersections
             intersection_direction = random.random()

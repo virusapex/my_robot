@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="traffic_construction">
+    <link name="box">
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.12 0.025 0.25</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.12 0.025 0.25</size>
+          </box>
+        </geometry>
+        <material>
+        <diffuse>1.0 1.0 1.0</diffuse>
+        <specular>1.0 1.0 1.0</specular>
+          <pbr>
+            <metal>
+              <albedo_map>traffic_construction.png</albedo_map>
+            </metal>
+          </pbr>
+        </material>
+      </visual>
+    </link>    
+  </model>
+</sdf>

@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<sdf version="1.10">
+<model name='tunnel'>
+    <pose>0 0 0 0 0 -3.1415926535897931</pose>
+    <static>true</static>
+    <link name='tunnel_link'>
+    <collision name='tunnel_collision'>
+        <geometry>
+        <pose>0 0 0 0 0 0</pose>
+        <mesh>
+            <uri>model://tunnel/tunnel.glb</uri>
+        </mesh>
+        </geometry>
+    </collision>
+    <visual name='tunnel_visual'>
+        <cast_shadows>true</cast_shadows>
+        <geometry>
+        <mesh>
+            <uri>model://tunnel/tunnel.glb</uri>
+        </mesh>
+        </geometry>
+    </visual>
+    <pose>0 0 0 0 0 0</pose>
+    </link>
+    <self_collide>false</self_collide>
+</model>
+</sdf>
