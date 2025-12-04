@@ -164,10 +164,21 @@ class ControlMission(Node):
         '''
         Generates a random AruCo marker from DICT_6x6_250
         '''
+        marker_size = 200
         aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
         self.aruco_marker_id = random.randint(0, 249)
-        marker_img = cv2.aruco.drawMarker(aruco_dict, self.aruco_marker_id, 200)
-        cv2.imwrite('/tmp/aruco_marker.png', marker_img)
+        marker_img = cv2.aruco.drawMarker(aruco_dict, self.aruco_marker_id, marker_size)
+        border_size = marker_size // 6
+        marker_with_border = cv2.copyMakeBorder(
+            marker_img, 
+            top=border_size, 
+            bottom=border_size, 
+            left=border_size, 
+            right=border_size, 
+            borderType=cv2.BORDER_CONSTANT, 
+            value=255
+        )
+        cv2.imwrite('/tmp/aruco_marker.png', marker_with_border)
         self.get_logger().info(f"Generated AruCo marker with ID: {self.aruco_marker_id}")
 
     def spawnArucoSign(self):
@@ -287,7 +298,6 @@ def main(args=None):
         pass
 
     node.destroy_node()
-    rclpy.shutdown()
 
 if __name__ == '__main__':
     main()
