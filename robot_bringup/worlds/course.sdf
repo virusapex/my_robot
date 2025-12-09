@@ -86,98 +86,98 @@
     </model>
 
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/traffic_intersection</uri>
+      <uri>model://traffic_intersection</uri>
       <name>traffic_intersection</name>
       <pose>2.3336299999999999 -1.40002 0.085 -9.7413400000000006e-17 -2.4820500000000002e-19 1.62562e-19</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/traffic_construction</uri>
+      <uri>model://traffic_construction</uri>
       <name>traffic_construction</name>
       <pose>1.05383 -0.0175897 0.085 -4.1257000000000014e-17 1.1996600000000003e-17 1.57558</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/traffic_tunnel</uri>
+      <uri>model://traffic_tunnel</uri>
       <name>traffic_tunnel</name>
       <pose>-1.9097838401794434 -0.11091999709606171 0.12549911199274189 -1.9671940502690238e-17 1.4340378748803109e-17 8.606726298581117e-20</pose>
     </include>
 
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/tunnel</uri>
+      <uri>model://tunnel</uri>
       <name>tunnel</name>
       <pose>-0.0083502074703574181 -0.021630514413118362 -0.0083736702799797058 0 0 -3.1415900000000754</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone</name>
       <pose>1.6625471444775399 0.35180949121572486 0.00049997042167031897 -2.3730390936853022e-08 2.0453555812070379e-07 -8.7337071684102304e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_1</name>
       <pose>1.8292810472716363 0.45376952561444006 0.00049997042167031994 -2.3730390822866048e-08 2.0453555820684654e-07 -7.1624193041882732e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_2</name>
       <pose>1.6724756926309028 0.55556503726647699 0.00049997042167031908 -2.3730390912775724e-08 2.0453555814121695e-07 -7.1624553181411475e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_3</name>
       <pose>2.2321410719036336 0.77797254368942492 0.00049997042167032049 -2.3730390850711605e-08 2.0453555819021243e-07 -7.1624148509742741e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_4</name>
       <pose>2.0611064285082574 0.90328711853555543 0.00049997042167031918 -2.3730390888674811e-08 2.0453555815651312e-07 -8.7336106969249161e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_5</name>
       <pose>2.2323140317682704 1.0259881221709592 0.00049997042167031886 -2.3730390911907343e-08 2.0453555814353991e-07 -7.1628307901549126e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_6</name>
       <pose>1.6783542882532032 1.1321612537887202 0.00049997042167031918 -2.3730390911782346e-08 2.045355581394877e-07 -7.1628307906690078e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_7</name>
       <pose>1.8303921966860222 1.2472302855746062 0.00049997042167031799 -2.3730390991556399e-08 2.0453555808433379e-07 -7.1628307916937957e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_8</name>
       <pose>1.6775725022245105 1.3249937891979364 0.00049997042167031832 -2.3730390922586595e-08 2.0453555813240058e-07 -7.1628307909071284e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_9</name>
       <pose>2.2391107472537808 1.8408769892124295 0.00049997042167032005 -2.3730390840311099e-08 2.0453555819727856e-07 -8.7056314269593218e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_10</name>
       <pose>2.1250157388787825 1.8340504633298864 0.00049997042167031799 -2.3730390974818207e-08 2.0453555809861196e-07 -8.7336107655624924e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_11</name>
       <pose>2.0147393311631889 1.8297595240803217 0.00049997042167031951 -2.3730390892365419e-08 2.045355581460809e-07 -8.7336107660203935e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_12</name>
       <pose>0.79891082444440908 1.8094877061607877 0.00049997042167031973 -2.373039083303137e-08 2.0453555819233959e-07 -7.1628309275240748e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_13</name>
       <pose>0.65755653113828638 1.8118040279535674 0.00049997042167031973 -2.373039084899135e-08 2.0453555817817196e-07 -7.1628309274339194e-12</pose>
     </include>
     <include>
-      <uri>file:///root/install/robot_bringup/share/robot_bringup/worlds/construction_cone</uri>
+      <uri>model://construction_cone</uri>
       <name>Construction Cone_14</name>
       <pose>0.52178383449476873 1.8121221683869246 0.0004999704216703194 -2.3730390858170749e-08 2.0453555818381839e-07 -8.7333557087877312e-12</pose>
     </include>
